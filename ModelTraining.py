@@ -185,7 +185,7 @@ def train_with_new_data(model_path, data_paths, epochs_per_dataset=100):
 # Example usage
 if __name__ == "__main__":
    model_path = './Model/MainPredictor.h5'
-   data_paths = ['./data/VOO.csv']
+   data_paths = ['./data/BAC.csv']
    train_with_new_data(model_path, data_paths, epochs_per_dataset=100)
 
 
@@ -194,3 +194,6 @@ if __name__ == "__main__":
 # GOOG
 # AAPL
 # KO
+# MSFT
+# BAC
+

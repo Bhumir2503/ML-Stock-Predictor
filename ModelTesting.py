@@ -93,8 +93,8 @@ def predict_stock(model_path, stock_data_path, company_name):
 if __name__ == "__main__":
     # Parameters
     MODEL_PATH = './Model/MainPredictor.h5'
-    NEW_STOCK_DATA = './data/MSFT.csv'
-    COMPANY_NAME = 'BAC'
+    NEW_STOCK_DATA = './data/META.csv'
+    COMPANY_NAME = 'META'
     
     # Make predictions
     real_prices, predicted_prices, future_prices = predict_stock(
