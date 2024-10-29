@@ -1,0 +1,114 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{JBT Financial Midterm Report\\
+%{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+%should not be used}
+}
+
+\author{\IEEEauthorblockN{David T. Wilkey}
+\IEEEauthorblockA{\textit{Developer} \\
+\textit{JBT Financial}\\
+Knoxville, TN \\
+}
+\and
+\IEEEauthorblockN{Bhumir Patel}
+\IEEEauthorblockA{\textit{Developer} \\
+\textit{JBT Financial}\\
+Knoxville, TN \\
+}
+\and
+\IEEEauthorblockN{Joey Syracuse}
+\IEEEauthorblockA{\textit{Developer} \\
+\textit{JBT Financial}\\
+Knoxville, TN \\
+}
+}
+
+
+\maketitle
+
+\begin{abstract}
+Planning investments based on market trends and research is a time consuming process that many individuals are unwilling/unable to pursue. Even when extensive market research is performed, many investors are still left with a sense of uncertainty surrounding their financial choices. By leveraging linear regression, random forest, and k-nearest neighbor techniques, JBT Financial has developed machine learning tools which analyze vast amounts of financial data quickly and efficiently to provide the user with valuable insights to help guide their investment decisions. This paper provides an overview of the machine learning pipelines used throughout the development process and discusses the promising initial results established by baseline models.
+\end{abstract}
+
+\section{Introduction}
+Investors have been interested in methods to best handle volatility and price fluctuations since the inception of the stock market. Despite performing hours of deep research and thoroughly evaluating company fundamentals, many traders are left dissatisfied with their investment performance. For others, lack of time or knowledge to devote to trading/market research is a significant barrier. The rise in popularity of mobile brokerage platforms has made stock trading more accessible for both large and small investors resulting in a greater need to address these unique challenges. JBT Financial has developed new machine learning tools designed to do exactly that. 
+
+Linear regression, random forest, and k-nearest neighbor machine learning techniques were utilized to create baseline models designed to provide the user with key pricing information to help guide their investment choices. To accomplish this, the models analyze vast amounts of historical trading data for a specific stock and then predict either the highest price point or closing price point of the stock at the end of the trading day.  The following sections explore the design and performance of each model to provide a deeper understand of these tools and their application towards addressing important problems faced by today's stock traders.
+
+\section{Linear Regression Model Development}
+
+\subsection{Data Exploration}
+Datasets used during training and testing of the baseline linear regression model were historical trading data for Berkshire Hathaway, Apple, and the Vanguard S\&P 500 ETF. The baseline linear regression model was trained on the Berkshire Hathaway dataset. Basic data preparation tasks such as removing columns with missing values and converting dates to datetime format were performed. A basic plot of the stock's price was created to visualize its change over time before training the model using the scikit-learn library. The feature matrix and target matrix were extracted from the dataset in a manner such that the features are used to predict the high price of the following day. A standard 80/20 train/test split was performed before fitting the model and evaluating the predictions made using the test set. Similar data cleaning was performed on the Apple and Vanguard ETF datasets. Minimal additional data preprocessing was also performed on the Vanguard dataset so it would match the formatting of the other datasets. Finally, the model was tested on unseen data.
+
+\subsection{Baseline Linear Regression Model}
+Testing of the baseline linear regression model was performed on the training data as well as two unseen datasets (Apple and Vanguard S\&P 500 ETF). Prior to each testing run, basic plots of the stock price were visualized. After each testing run on unseen data, an additional plot was generated to compare the predicted model values with the actual values. An additional comparison table, mean squared error, and R2 score were also generated to further aid in performance evaluation.
+
+Testing the model on data from the Berkshire Hathaway test set resulted in very high accuracy with an R2 score of 0.9991, suggesting the possibility of overfitting. To confirm this suspicion, the model was then tested on the unseen Apple dataset. As expected, the predicted prices were very inaccurate. For this dataset, a negative R2 score was calculated indicating the model explains none of the variability in the Apple data. An additional test run was then performed on the unseen Vanguard dataset. Due to the Vanguard dataset's reduced volatility in comparison with Apple, its target prices trend more closely to Berkshire Hathaway, suggesting better generalization to this dataset. Performance metrics for this test run confirmed this theory as evidenced by an R2 score of 0.9997 and mean squared error of 2.687. 
+
+In an attempt to increase the model's generalization to the Apple dataset, further data preprocessing was performed. Due to the much larger size of the Apple dataset, lower end outliers were manually trimmed from the data before re-evaluating performance. Unfortunately, this only yielded a marginal performance increase indicating the need for additional model refinements to counter overfitting. 
+
+Despite positive performance when applied to unseen data with many similarities to the training data, experimentation with this baseline model highlights the limitations of basic linear regression. Possible improvements to the baseline linear model include introducing regularization, additional features, polynomial regression and/or increasing diversity of the training samples. Additional plans also include model modifications which output predictions for thirty days in the future instead of just the following day to increase practicality for real world use. 
+
+\section{Random Forest Model Development}
+
+\subsection{Data Exploration}
+
+\subsection{Baseline Random Forest Model}
+
+\section{K-Nearest Neighbor Model Development}
+
+\subsection{Data Exploration}
+
+\subsection{Baseline K-Nearest Neighbor Model}
+
+\section{Planned Model Improvements}
+
+\section{Conclusion}
+
+\section*{References}
+
+Please number citations consecutively within brackets \cite{b1}. The 
+sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
+number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
+the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+
+Number footnotes separately in superscripts. Place the actual footnote at 
+the bottom of the column in which it was cited. Do not put footnotes in the 
+abstract or reference list. Use letters for table footnotes.
+
+Unless there are six authors or more give all authors' names; do not use 
+``et al.''. Papers that have not been published, even if they have been 
+submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
+that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
+Capitalize only the first word in a paper title, except for proper nouns and 
+element symbols.
+
+For papers published in translation journals, please give the English 
+citation first, followed by the original foreign-language citation \cite{b6}.
+
+\begin{thebibliography}{00}
+\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+\end{thebibliography}
+\vspace{12pt}
+\color{red}
+IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
+\end{document}
