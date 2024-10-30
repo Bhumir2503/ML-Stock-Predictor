@@ -55,7 +55,13 @@ Datasets used during training and testing of the baseline linear regression mode
 \subsection{Baseline Linear Regression Model}
 Testing of the baseline linear regression model was performed on the training data as well as two unseen datasets (Apple and Vanguard S\&P 500 ETF). Prior to each testing run, basic plots of the stock price were visualized. After each testing run on unseen data, an additional plot was generated to compare the predicted model values with the actual values. An additional comparison table, mean squared error, and R2 score were also generated to further aid in performance evaluation.
 
-Testing the model on data from the Berkshire Hathaway test set resulted in very high accuracy with an R2 score of 0.9991, suggesting the possibility of overfitting. To confirm this suspicion, the model was then tested on the unseen Apple dataset. As expected, the predicted prices were very inaccurate. For this dataset, a negative R2 score was calculated indicating the model explains none of the variability in the Apple data. An additional test run was then performed on the unseen Vanguard dataset. Due to the Vanguard dataset's reduced volatility in comparison with Apple, its target prices trend more closely to Berkshire Hathaway, suggesting better generalization to this dataset. Performance metrics for this test run confirmed this theory as evidenced by an R2 score of 0.9997 and mean squared error of 2.687. 
+Testing the model on data from the Berkshire Hathaway test set resulted in very high accuracy with an R2 score of 0.9991, suggesting the possibility of overfitting. To confirm this suspicion, the model was then tested on the unseen Apple dataset. As expected, the predicted prices were very inaccurate. For this dataset, a negative R2 score was calculated indicating the model explains none of the variability in the Apple data. An additional test run was then performed on the unseen Vanguard dataset. Due to the Vanguard dataset's reduced volatility in comparison with Apple, its target prices trend more closely to Berkshire Hathaway, suggesting better generalization to this dataset. Performance metrics for this test run confirmed this theory as evidenced by an R2 score of 0.9997 and mean squared error of 2.687 (see Fig. 1). 
+\begin{figure}[ht] 
+    \centering
+    \includegraphics[width=0.30\textwidth]{VOO_Linear.jpg}
+    \caption{Vanguard S\&P 500 (VOO) Performance}
+    \label{fig:your_label}
+\end{figure}
 
 In an attempt to increase the model's generalization to the Apple dataset, further data preprocessing was performed. Due to the much larger size of the Apple dataset, lower end outliers were manually trimmed from the data before re-evaluating performance. Unfortunately, this only yielded a marginal performance increase indicating the need for additional model refinements to counter overfitting. 
 
@@ -70,8 +76,13 @@ Each of the datasets for these three investments included basic metrics such as 
 
 \subsection{Baseline Random Forest Model}
 For the purposes of this baseline model, the target prediction was the close price, while the other metrics were used as features (open, low, high, and volume). While random forests are most commonly used for classification problems, they can also be used for regression problems such as stock prediction with the scikit-learn RandomForestRegressor. This type of model works by creating an ensemble of decision trees to make predictions on a subset of samples from the overall dataset. Each tree is randomized and makes individual predictions about a single day’s closing price, which are then averaged to make the final prediction. Ideally, ensemble methods such as random forests are used to control over-fitting, but significant evidence of overfitting was found in the use of this model.
-When training the random forests models a new model was trained on each dataset and then used for closing price prediction of that specific investment. The data was randomized into training and testing sets with the standard 80/20 split, as well as splitting the dates with the same randomization so the test data could later be resorted for plotting of the test set. For each investment, the RandomForestRegressor from scikit-learn was trained and then evaluated on the test set. Each was trained with 500 estimators and a maximum tree depth of 10. A visualization was produced by sorting the dataframe containing the test set and dates to assess how close the predictions matched the test set visually, but the mean squared error and R2 score were also calculated to evaluate the performance. Each of the models’ R2 scores were greater than 0.99, indicating that overfitting is likely to be occurring. The AAPL mean squared error was quite low, at 0.5871, while BRK and VOO had relatively similar mean squared errors of 10.16 and 9.891, which makes sense as they are in similar price ranges for the span of their datasets.
-
+When training the random forests models a new model was trained on each dataset and then used for closing price prediction of that specific investment. The data was randomized into training and testing sets with the standard 80/20 split, as well as splitting the dates with the same randomization so the test data could later be resorted for plotting of the test set. For each investment, the RandomForestRegressor from scikit-learn was trained and then evaluated on the test set. Each was trained with 500 estimators and a maximum tree depth of 10. A visualization was produced by sorting the dataframe containing the test set and dates to assess how close the predictions matched the test set visually, but the mean squared error and R2 score were also calculated to evaluate the performance. Each of the models’ R2 scores were greater than 0.99, indicating that overfitting is likely to be occurring. The AAPL mean squared error was quite low, at 0.5871 (see Fig. 2), while BRK and VOO had relatively similar mean squared errors of 10.16 and 9.891, which makes sense as they are in similar price ranges for the span of their datasets.
+\begin{figure}[ht] 
+    \centering
+    \includegraphics[width=0.30\textwidth]{AAPL_Random_Forest.jpg}
+    \caption{Aaple (AAPL) Performance}
+    \label{fig:your_label2}
+\end{figure}
 
 \section{K-Nearest Neighbor Model Development}
 
@@ -108,5 +119,34 @@ In conclusion, JBT Financial's development of machine learning tools such as the
 By discarding KNN and implementing the planned improvement in hyperparameter tuning, and feature engineering, JBT Financial aims to enhance the reliability and efficacy of predicting market movement. These enhancements are instrumental in delivering a robust tool for investors to predict market movement and base decisions on the prediction.
 
 As we integrate these advancements and refine our methods, our commitment remains steadfast in providing investors with tools that inform and guide strategic investment decisions.Through continuous innovation and adaptation, we aspire to set new benchmarks in financial forecasting and empower our clients to navigate markets confidently and clearly. 
+
+\newpage
+\begin{center}
+    Work Distribution
+\end{center}
+
+\begin{itemize}
+    \item David T. Wilkey
+    \begin{itemize}
+        \item Linear Regression Model Development and Writing
+        \item Abstract and Introduction Writing
+    \end{itemize}
+    \item Joey Syracuse
+    \begin{itemize}
+        \item Random Forest Model Development and Writing 
+        \item Planned Model Improvements and Conclusion Writing
+    \end{itemize}
+    \item Bhumir Patel
+    \begin{itemize}
+        \item K-Nearest Neighbor Model Development and Writing
+        \item Planned Model Improvements and Conclusion Writing
+    \end{itemize}
+    \end{itemize}
+    \begin{itemize}
+        \item All
+        \begin{itemize}
+            \item Report Editing and Proofreading
+        \end{itemize}
+    \end{itemize}
 
 \end{document}
