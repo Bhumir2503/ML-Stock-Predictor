@@ -64,51 +64,52 @@ Despite positive performance when applied to unseen data with many similarities 
 \section{Random Forest Model Development}
 
 \subsection{Data Exploration}
+The datasets considered for this project consisted of 3 major investment types: a holding company, single stock, and an electronic trade fund (ETF). The specific investments evaluated were Berkshire Hathaway (BRK), Apple (AAPL), and Vanguard S\&P 500 ETF (VOO). The intention in examining multiple types of investments was to explore how a machine learning approach might perform differently for different types of investments, as larger funds such as VOO and BRK exhibit less volatility than individual stocks such as AAPL, due to the diversification of their portfolios.
+
+Each of the datasets for these three investments included basic metrics such as the open, close, low, and high prices for each trading day, as well as the volume traded during that day. The Apple dataset was by far the largest, starting from the company’s IPO in 1980. This means that decades of lower prices are included in the training of the model which could influence the future predictions of the model. The VOO and BRK datasets only span from 2010 and 2015 to present respectively. Considering this more recent and condensed dataset and the fact that they are more diversified/stable investments, we would expect better performance on the predictions of these investments when compared to single-stock investments like AAPL.
 
 \subsection{Baseline Random Forest Model}
+For the purposes of this baseline model, the target prediction was the close price, while the other metrics were used as features (open, low, high, and volume). While random forests are most commonly used for classification problems, they can also be used for regression problems such as stock prediction with the scikit-learn RandomForestRegressor. This type of model works by creating an ensemble of decision trees to make predictions on a subset of samples from the overall dataset. Each tree is randomized and makes individual predictions about a single day’s closing price, which are then averaged to make the final prediction. Ideally, ensemble methods such as random forests are used to control over-fitting, but significant evidence of overfitting was found in the use of this model.
+When training the random forests models a new model was trained on each dataset and then used for closing price prediction of that specific investment. The data was randomized into training and testing sets with the standard 80/20 split, as well as splitting the dates with the same randomization so the test data could later be resorted for plotting of the test set. For each investment, the RandomForestRegressor from scikit-learn was trained and then evaluated on the test set. Each was trained with 500 estimators and a maximum tree depth of 10. A visualization was produced by sorting the dataframe containing the test set and dates to assess how close the predictions matched the test set visually, but the mean squared error and R2 score were also calculated to evaluate the performance. Each of the models’ R2 scores were greater than 0.99, indicating that overfitting is likely to be occurring. The AAPL mean squared error was quite low, at 0.5871, while BRK and VOO had relatively similar mean squared errors of 10.16 and 9.891, which makes sense as they are in similar price ranges for the span of their datasets.
+
 
 \section{K-Nearest Neighbor Model Development}
 
 \subsection{Data Exploration}
+The dataset utilized in this study consists of stock market prices obtained from the historical price data of Berkshire Hathaway Inc. The data includes several key attributes such as the opening price, highest price, lowest price, trading volume, and closing price. The dataset covers a significant time period, allowing the model to learn the inherent patterns in stock price movements.
+
+Initially, a thorough exploration of the data was conducted to understand its structure and characteristics. The dataset contained multiple attributes, with the Close price being the target variable for prediction, while Open, High, Low, and Volume served as feature inputs. After parsing the date column and ensuring the data was chronologically ordered, missing or erroneous values were addressed to maintain data integrity. Furthermore, summary statistics such as mean, variance, and range were computed for each feature to identify any anomalies or outliers.
+
+Feature scaling was a critical step due to the inherent differences in the range of the input variables, such as price values compared to trading volume. This ensured that the K-Nearest Neighbor algorithm, which relies on distance calculations between points, did not get biased toward features with larger numerical scales. As a result, the StandardScaler method was applied to normalize the features, standardizing them to a mean of 0 and a standard deviation of 1.
 
 \subsection{Baseline K-Nearest Neighbor Model}
+To establish a baseline for comparison, a K-Nearest Neighbor (KNN) regressor was implemented. KNN is a non-parametric algorithm that operates by identifying the 'k' most similar data points to a given input and using their values to predict the target variable. In this study, the number of neighbors (k) was initially set to 5, a common starting point in KNN implementations.
+
+The feature set, consisting of Open, High, Low, and Volume, was divided into training and testing sets using an 80-20 split, ensuring that the temporal sequence of the data was preserved. This approach is crucial in time series forecasting as shuffling the data could disrupt the temporal dependencies. After splitting, the StandardScaler was applied to the training set, and the same scaling transformation was applied to the testing set.
+
+The KNN model was trained on the scaled training data, and predictions were made on the testing set. Performance evaluation was conducted using the Mean Squared Error (MSE) metric, which quantified the average squared difference between the predicted and actual closing prices. Initial results indicated that while KNN is capable of capturing some trends, the model's performance suffered from the lack of consideration for the sequential nature of the stock data, particularly in highly volatile markets. The MSE of the baseline model provided a benchmark for further refinement and comparison with other machine learning models.
+
+To visualize the performance of the baseline model, the predicted stock prices were plotted against the actual closing prices over the test period. This revealed that the KNN model struggled to predict sudden price changes, which is consistent with the limitations of distance-based models in complex, non-linear time series data like stock prices.
 
 \section{Planned Model Improvements}
+To refine and optimize our machine learning models at JBT Financial, we have outlined several strategic enhancements. First and foremost, we recognize the limitations of K-Nearest Neighbor (KNN) in capturing the intricate dynamics of financial markets. Therefore, we are planning to phase out KNN from our model selection and focus on more advanced and scalable techniques that better align with the complexities of financial data.
+
+Additionally, we will prioritize hyperparameter tuning across all methodologies, including linear regression and random forest. This approach aims to strike a delicate balance between achieving high predictive accuracy and ensuring robust generalization capabilities across different market conditions.
+
+Furthermore, we are shifting towards sequential data splitting techniques for training and testing datasets. This method will better preserve the temporal dependencies inherent in stock market data, providing more realistic evaluations of model performance.
+
+Moreover, we are introducing advanced feature engineering practices. This includes incorporating moving averages, technical indicators like relative strength index (RSI), and other market-specific metrics. These enhancements are designed to capture nuanced trends and improve the precision of our forecasting models.
+
+We also aim to diversify our modeling approach by exploring ensemble methods and advanced regression techniques. This strategic move will enhance the overall robustness and adaptability of our predictive models, making them more resilient to varying market scenarios.
+
+Lastly, we are expanding our suite of evaluation metrics beyond traditional measures like mean squared error (MSE) and R2 score. By incorporating metrics that assess model stability, consistency, and performance under diverse conditions, we aim to provide more comprehensive insights into model efficacy.
+
+These planned improvements underscore our commitment at JBT Financial to continually enhance the reliability and efficacy of our machine learning tools. By implementing these strategies, we seek to empower investors with sophisticated, data-driven decision-making tools that navigate the complexities of financial markets with confidence and clarity.
 
 \section{Conclusion}
+In conclusion, the development of machine learning tools at JBT Financial represents a significant stride towards empowering investors with insightful decision-making tools in the volatile landscape of financial markets. While initial models have shown promise, challenges such as overfitting and model generalization remain critical considerations.
 
-\section*{References}
+By strategically discontinuing KNN and implementing planned improvements in hyperparameter tuning, feature engineering, and model diversification, JBT Financial aims to enhance the reliability and efficacy of our predictive models. These enhancements are pivotal in delivering robust tools that not only predict market trends accurately but also adapt to evolving market dynamics.
 
-Please number citations consecutively within brackets \cite{b1}. The 
-sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
-number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
-the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
-
-Number footnotes separately in superscripts. Place the actual footnote at 
-the bottom of the column in which it was cited. Do not put footnotes in the 
-abstract or reference list. Use letters for table footnotes.
-
-Unless there are six authors or more give all authors' names; do not use 
-``et al.''. Papers that have not been published, even if they have been 
-submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
-that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
-Capitalize only the first word in a paper title, except for proper nouns and 
-element symbols.
-
-For papers published in translation journals, please give the English 
-citation first, followed by the original foreign-language citation \cite{b6}.
-
-\begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
-\end{thebibliography}
-\vspace{12pt}
-\color{red}
-IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
-
+As we integrate these advancements and refine our methodologies, our commitment remains steadfast in providing investors with sophisticated tools that facilitate informed and strategic investment decisions. Through continuous innovation and adaptation, we aspire to set new benchmarks in the realm of financial forecasting and empower our clients to navigate markets with confidence and clarity.
 \end{document}
