@@ -1,16 +1,16 @@
 import pandas as pd
 
-def load_data(file_path, features, target):
+def load_data(file_path):
     '''
-    Simple data load with feature/target definition and date retention
+    Simple data load with whitespace stripping, NaN dropping, and datetime conversion
     '''
 
     df = pd.read_csv(file_path)
-    X = df[features]
-    y = df[target]
-    dates = pd.to_datetime(df['Date'])
+    df.columns = df.columns.str.strip()
+    df = df.dropna()
+    df['Date'] = pd.to_datetime(df['Date'])
 
-    return X, y, dates
+    return df
 
 def sequential_split(X, y, dates, test_size=None):
     '''
@@ -20,12 +20,11 @@ def sequential_split(X, y, dates, test_size=None):
 
     Defaults to test size of 1 day if not provided.
     '''
-
     if test_size==None:
         test_size = 1/len(X)
 
     splitIndex = int(len(X)*(1-test_size))
-
+    
     X_train = X[:splitIndex]
     X_test = X[splitIndex:]
 

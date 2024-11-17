@@ -19,10 +19,11 @@ def comp_table(actual_prices, predicted_prices, stock_ticker):
 
     '''Format and print a table to compare actual vs. predicted prices'''
 
-    comparison = pd.DataFrame({'Actual': actual_prices.flatten(), 'Predicted': predicted_prices.flatten()})
+    comparison = pd.DataFrame({'Actual': actual_prices, 'Predicted': predicted_prices})
     table_title = stock_ticker + ' Prediction Comparison'
     print(table_title)
     print(comparison)
+    print()
 
 
 def plot_split(split_data):
